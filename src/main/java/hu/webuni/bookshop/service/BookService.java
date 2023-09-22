@@ -22,8 +22,8 @@ public class BookService {
 	private BookRepository bookRepository;
 	
 	public void init() {
-		bookRepository.save(new Book(1, "cim1", "isbn1"));
-		bookRepository.save(new Book(2, "cim2", "isbn2"));
+		bookRepository.save(new Book(0, "cim1", "isbn1"));
+		bookRepository.save(new Book(0, "cim2", "isbn2"));
 	}
 
 	public List<Book> findAll() {
