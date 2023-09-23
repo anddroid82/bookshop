@@ -1,12 +1,13 @@
 package hu.webuni.bookshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hu.webuni.bookshop.model.Book;
 import hu.webuni.bookshop.repository.BookRepository;
+import lombok.AllArgsConstructor;
 
 /**
  * 
@@ -16,18 +17,17 @@ import hu.webuni.bookshop.repository.BookRepository;
  * {@summary Ennek a feladata a /shop/book REST végponton szolgáltatni az adatokat.}
  */
 @Service
+@AllArgsConstructor
 public class BookService {
 
-	@Autowired
 	private BookRepository bookRepository;
-	
-	public void init() {
-		bookRepository.save(new Book(0, "cim1", "isbn1"));
-		bookRepository.save(new Book(0, "cim2", "isbn2"));
-	}
 
 	public List<Book> findAll() {
 		return this.bookRepository.findAll();
+	}
+
+	public Optional<Book> findById(int id) {
+		return this.bookRepository.findById(id);
 	}
 	
 }

@@ -1,17 +1,17 @@
 package hu.webuni.bookshop;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import hu.webuni.bookshop.service.BookService;
+import hu.webuni.bookshop.service.InitDbService;
+import lombok.AllArgsConstructor;
 
 @SpringBootApplication
+@AllArgsConstructor
 public class BookshopApplication implements CommandLineRunner {
-
-	@Autowired
-	private BookService bookService;
+	
+	private InitDbService initDbService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BookshopApplication.class, args);
@@ -19,7 +19,7 @@ public class BookshopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.bookService.init();
+		this.initDbService.init();
 		System.out.println("hello, futok");
 		
 	}
