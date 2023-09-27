@@ -25,7 +25,7 @@ public class Author {
 	private String name;
 	private LocalDate birthDate;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "authors")
 	private List<Book> books;
 	
 	public void addBook(Book b) {
