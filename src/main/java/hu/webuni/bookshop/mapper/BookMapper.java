@@ -10,9 +10,9 @@ import hu.webuni.bookshop.model.Book;
 @Mapper(componentModel = "spring")
 public interface BookMapper {
 
-	BookDto bookToBookDto(Book b);
-	Book bookDtoToBook(BookDto b);
+	BookDto bookToDto(Book b);
+	Book dtoToBook(BookDto b);
 	
-	List<BookDto> booksToBookDtos(List<Book> books);
+	List<BookDto> booksToDtos(List<Book> books);
 	
 }

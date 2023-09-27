@@ -1,6 +1,6 @@
 package hu.webuni.bookshop.dto;
 
-import java.util.List;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BookDto {	
+public class AuthorDto {
 	private int id;
-	private String title;
-	private String isbn;	
-	private String summary;
-	private List<AuthorDto> authors;
+	private String name;
+	private LocalDate birthDate;
+	
 }
-

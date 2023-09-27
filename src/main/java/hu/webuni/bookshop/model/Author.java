@@ -1,5 +1,6 @@
 package hu.webuni.bookshop.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,19 +17,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Book {
+public class Author {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String title;
-	private String isbn;
-	private String summary;
+	private String name;
+	private LocalDate birthDate;
 	
 	@ManyToMany
-	private List<Author> authors;
+	private List<Book> books;
 	
-	public void addAuthor(Author a) {
-		this.authors.add(a);
-		a.addBook(this);
+	public void addBook(Book b) {
+		this.books.add(b);
 	}
 }

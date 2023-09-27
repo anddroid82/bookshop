@@ -27,13 +27,13 @@ public class BookController {
 	
 	@GetMapping
 	public ResponseEntity<List<BookDto>> getAll() {
-		return ResponseEntity.ok(this.bookMapper.booksToBookDtos(this.bookService.findAll()));
+		return ResponseEntity.ok(this.bookMapper.booksToDtos(this.bookService.findAll()));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<BookDto> getById(@PathVariable int id) {
 		Optional<Book> book = this.bookService.findById(id);
-		return ResponseEntity.ok(this.bookMapper.bookToBookDto(book.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND))));
+		return ResponseEntity.ok(this.bookMapper.bookToDto(book.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND))));
 	}
 
 }

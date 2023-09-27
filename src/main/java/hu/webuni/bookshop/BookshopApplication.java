@@ -20,8 +20,6 @@ public class BookshopApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		this.initDbService.init();
-		System.out.println("hello, futok");
-		
 	}
 	
 }
