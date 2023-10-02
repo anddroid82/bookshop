@@ -14,5 +14,6 @@ public class BookDto {
 	private String isbn;	
 	private String summary;
 	private List<AuthorDto> authors;
+	private int price;
 }
 

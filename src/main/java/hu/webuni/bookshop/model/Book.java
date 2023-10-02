@@ -23,6 +23,7 @@ public class Book {
 	private String title;
 	private String isbn;
 	private String summary;
+	private int price;
 	
 	@ManyToMany
 	private List<Author> authors;
