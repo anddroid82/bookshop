@@ -24,9 +24,9 @@ public class Book {
 	private String isbn;
 	private String summary;
 	private int price;
-	
 	@ManyToMany
 	private List<Author> authors;
+	private String image;
 	
 	public void addAuthor(Author a) {
 		this.authors.add(a);
