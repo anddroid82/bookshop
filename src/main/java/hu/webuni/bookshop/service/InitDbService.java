@@ -158,7 +158,7 @@ public class InitDbService {
 		this.bookRepository.save(b37);b37.addAuthor(a17);
 		Book b38 = new Book(0, "E-könyv -Agymenés", "7483475647535", "Csak legyünk túl a kamaszkoron! A kamaszok megőrülnek a hormonjaik miatt... És...", 2999, new ArrayList<>(),"https://s06.static.libri.hu/cover/58/0/9865157_3.jpg");
 		this.bookRepository.save(b38);b38.addAuthor(a29);
-
+		//System.out.println("b38:"+b38);
 		
 		
 		
