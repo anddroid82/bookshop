@@ -3,6 +3,8 @@ package hu.webuni.bookshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import hu.webuni.bookshop.model.Book;
@@ -29,5 +31,13 @@ public class BookService {
 	public Optional<Book> findById(int id) {
 		return this.bookRepository.findById(id);
 	}
+	
+	public Book modifiyBook(Book b) {
+		if (bookRepository.existsById(b.getId())) {
+			return bookRepository.save(b);
+		}
+		return null;
+	}
+	
 	
 }
