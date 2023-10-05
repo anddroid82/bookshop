@@ -1,5 +1,6 @@
 package hu.webuni.bookshop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,5 +32,12 @@ public class Book {
 	public void addAuthor(Author a) {
 		this.authors.add(a);
 		a.addBook(this);
+	}
+	
+	public void removeAllAuthor() {
+		for (Author a:this.authors) {
+			a.removeBook(this);
+		}
+		this.authors=new ArrayList<>();
 	}
 }

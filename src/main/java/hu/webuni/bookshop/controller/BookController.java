@@ -39,11 +39,14 @@ public class BookController {
 	}
 	
 	@PostMapping("/{id}/mod")
-	public ResponseEntity<BookDto> modPrice(@PathVariable int id,@RequestParam int price) {
-		System.out.println("book: "+id);
-		Book b = bookService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		b.setPrice(price);
-		return ResponseEntity.ok(bookMapper.bookToDto(bookService.modifiyBook(b)));
+	public ResponseEntity<BookDto> modPrice(
+			@PathVariable int id,
+			@RequestParam String title,
+			@RequestParam String summary,
+			@RequestParam String isbn,
+			@RequestParam int price,
+			@RequestParam int[] authors) {
+		return ResponseEntity.ok(bookMapper.bookToDto(bookService.modifiyBook(id,title,summary,isbn,price,authors)));
 	}
 
 }

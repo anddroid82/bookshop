@@ -31,4 +31,8 @@ public class Author {
 	public void addBook(Book b) {
 		this.books.add(b);
 	}
+	
+	public void removeBook(Book b) {
+		this.books.remove(b);
+	}
 }
