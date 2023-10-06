@@ -19,7 +19,6 @@ public class InitDbService {
 	
 	@Transactional
 	public void init() {
-		
 		Author a0 = new Author(0, "Bálint Piroska", LocalDate.parse("1988-05-18"),new ArrayList<>());
 		this.authorRepository.save(a0);
 		Author a1 = new Author(0, "Danielle Graf", LocalDate.parse("1989-06-08"),new ArrayList<>());
