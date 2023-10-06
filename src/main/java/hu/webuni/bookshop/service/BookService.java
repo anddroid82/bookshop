@@ -65,7 +65,9 @@ public class BookService {
 			Book b = this.findById(bid).get();
 			b.setTitle(title);b.setSummary(summary);b.setIsbn(isbn);b.setPrice(price);
 			this.addAuthorsByIntArray(b,authors);
-			b.setImage(this.uploadFile(file,b.getId()));
+			if (file != null) {
+				b.setImage(this.uploadFile(file,b.getId()));
+			}
 			return bookRepository.save(b);
 		}
 		return null;

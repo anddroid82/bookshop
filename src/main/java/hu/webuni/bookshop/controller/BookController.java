@@ -46,7 +46,7 @@ public class BookController {
 			@RequestParam String isbn,
 			@RequestParam int price,
 			@RequestParam int[] authors,
-			@RequestParam MultipartFile image) {
+			@RequestParam(required = false) MultipartFile image) {
 		return ResponseEntity.ok(bookMapper.bookToDto(bookService.modifiyBook(id,title,summary,isbn,price,authors,image)));
 	}
 }
