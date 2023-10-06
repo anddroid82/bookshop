@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-
 import hu.webuni.bookshop.dto.BookDto;
 import hu.webuni.bookshop.mapper.BookMapper;
 import hu.webuni.bookshop.model.Book;
@@ -45,8 +45,8 @@ public class BookController {
 			@RequestParam String summary,
 			@RequestParam String isbn,
 			@RequestParam int price,
-			@RequestParam int[] authors) {
-		return ResponseEntity.ok(bookMapper.bookToDto(bookService.modifiyBook(id,title,summary,isbn,price,authors)));
+			@RequestParam int[] authors,
+			@RequestParam MultipartFile image) {
+		return ResponseEntity.ok(bookMapper.bookToDto(bookService.modifiyBook(id,title,summary,isbn,price,authors,image)));
 	}
-
 }
