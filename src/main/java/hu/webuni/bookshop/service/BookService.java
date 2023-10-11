@@ -1,7 +1,7 @@
 package hu.webuni.bookshop.service;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -12,8 +12,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.google.common.io.Files;
 
 import hu.webuni.bookshop.model.Author;
 import hu.webuni.bookshop.model.Book;
@@ -47,12 +45,14 @@ public class BookService {
 	}
 	
 	public String uploadFile(MultipartFile file, int bookId) {
-		String extension = Files.getFileExtension(file.getOriginalFilename());
+		//TODO: kiterjesztést meghatározni
+		String extension = "jpg";//Files.getFileExtension(file.getOriginalFilename());
 		String newFileName = bookId+"."+extension;
         Path fileNameAndPath = Paths.get("images",newFileName);
         System.out.println("Path:"+fileNameAndPath.toAbsolutePath());
         try {
-			Files.write(file.getBytes(), new File(fileNameAndPath.toString()));
+			//Files.write(file.getBytes(), new File());
+			Files.write(fileNameAndPath, file.getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

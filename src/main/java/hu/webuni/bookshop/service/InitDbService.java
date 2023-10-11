@@ -2,12 +2,17 @@ package hu.webuni.bookshop.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Set;
+
 import javax.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import hu.webuni.bookshop.model.Author;
 import hu.webuni.bookshop.model.Book;
+import hu.webuni.bookshop.model.BookshopUser;
 import hu.webuni.bookshop.repository.AuthorRepository;
 import hu.webuni.bookshop.repository.BookRepository;
+import hu.webuni.bookshop.repository.BookshopUserRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -16,7 +21,9 @@ public class InitDbService {
 
 	private BookRepository bookRepository;
 	private AuthorRepository authorRepository;
-	
+	private BookshopUserRepository bookshopUserRepository;
+	private PasswordEncoder passwordEncoder;
+
 	@Transactional
 	public void init() {
 		Author a0 = new Author(0, "Bálint Piroska", LocalDate.parse("1988-05-18"),new ArrayList<>());
@@ -159,8 +166,11 @@ public class InitDbService {
 		this.bookRepository.save(b38);b38.addAuthor(a29);
 		//System.out.println("b38:"+b38);
 		
+		BookshopUser bu1 = new BookshopUser("admin", passwordEncoder.encode("pass"), Set.of("admin","user"));
+		bookshopUserRepository.save(bu1);
 		
-		
+		BookshopUser bu2 = new BookshopUser("user", passwordEncoder.encode("pass"), Set.of("user"));
+		bookshopUserRepository.save(bu2);
 	}
-	
+
 }
