@@ -23,8 +23,8 @@ import lombok.RequiredArgsConstructor;
  * 
  * @author andro
  * 
- * @version 1.0
- * {@summary Ennek a feladata a /shop/book REST végponton szolgáltatni az adatokat.}
+ * @version 1.0 {@summary Ennek a feladata a /shop/book REST végponton
+ *          szolgáltatni az adatokat.}
  */
 @Service
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class BookService {
 
 	private final BookRepository bookRepository;
 	private final AuthorRepository authorRepository;
-	
+
 	@Value("${images.baseurl}")
 	private String imagesBaseUrl;
 
@@ -43,46 +43,52 @@ public class BookService {
 	public Optional<Book> findById(int id) {
 		return this.bookRepository.findById(id);
 	}
-	
+
 	public String uploadFile(MultipartFile file, int bookId) {
-		//TODO: kiterjesztést meghatározni
-		String extension = "jpg";//Files.getFileExtension(file.getOriginalFilename());
-		String newFileName = bookId+"."+extension;
-        Path fileNameAndPath = Paths.get("images",newFileName);
-        System.out.println("Path:"+fileNameAndPath.toAbsolutePath());
-        try {
-			//Files.write(file.getBytes(), new File());
+		// TODO: kiterjesztést meghatározni
+		String fileName = file.getOriginalFilename();
+		String extension = fileName.substring(fileName.lastIndexOf("."));
+		String newFileName = bookId + extension;
+		Path fileNameAndPath = Paths.get("images", newFileName);
+		System.out.println("Path:" + fileNameAndPath.toAbsolutePath());
+		try {
+			// Files.write(file.getBytes(), new File());
 			Files.write(fileNameAndPath, file.getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return this.imagesBaseUrl+"/"+newFileName;
+		return this.imagesBaseUrl + "/" + newFileName;
 	}
-	
+
 	@Transactional
-	public Book modifiyBook(int bid,String title,String summary,String isbn,int price,int[] authors, MultipartFile file) {
+	public Book modifiyBook(int bid, String title, String summary, String isbn, int price, int[] authors,
+			MultipartFile file) {
 		if (bookRepository.existsById(bid)) {
 			Book b = this.findById(bid).get();
-			b.setTitle(title);b.setSummary(summary);b.setIsbn(isbn);b.setPrice(price);
-			this.addAuthorsByIntArray(b,authors);
+			b.setTitle(title);
+			b.setSummary(summary);
+			b.setIsbn(isbn);
+			b.setPrice(price);
+			this.addAuthorsByIntArray(b, authors);
 			if (file != null) {
-				b.setImage(this.uploadFile(file,b.getId()));
+				String uploadFile = this.uploadFile(file, b.getId()); 
+				if (uploadFile != "") b.setImage(uploadFile);
 			}
 			return bookRepository.save(b);
 		}
 		return null;
 	}
-	
+
 	@Transactional
 	public Book addAuthorsByIntArray(Book b, int[] authors) {
 		b.removeAllAuthor();
-		for (int aId:authors) {
+		for (int aId : authors) {
 			Author author = authorRepository.findById(aId).orElse(null);
-			if (author!=null) {
+			if (author != null) {
 				b.addAuthor(author);
 			}
 		}
 		return b;
 	}
-	
+
 }
