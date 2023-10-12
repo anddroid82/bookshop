@@ -2,9 +2,9 @@ package hu.webuni.bookshop.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +28,7 @@ public class BookController {
 	private BookMapper bookMapper;
 	
 	@GetMapping
+	
 	public ResponseEntity<List<BookDto>> getAll() {
 		return ResponseEntity.ok(this.bookMapper.booksToDtos(this.bookService.findAll()));
 	}
@@ -39,6 +40,7 @@ public class BookController {
 	}
 	
 	@PostMapping("/{id}/mod")
+	@PreAuthorize("hasAuthority('admin')")
 	public ResponseEntity<BookDto> modPrice(
 			@PathVariable int id,
 			@RequestParam String title,

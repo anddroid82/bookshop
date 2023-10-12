@@ -20,12 +20,11 @@ public class BookshopUserDetailService implements UserDetailsService {
 	private BookshopUserRepository userRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
 		BookshopUser bookshopUser = userRepository.findById(username)
 				.orElseThrow(()-> new UsernameNotFoundException(username));
 		
-		
-		return new User(username, bookshopUser.getPassword(), 
+		return new User(username, bookshopUser.getPassword(),
 				bookshopUser.getRoles().stream().map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList()));
 	}

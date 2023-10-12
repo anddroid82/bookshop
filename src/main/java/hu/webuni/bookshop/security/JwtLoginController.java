@@ -20,6 +20,7 @@ public class JwtLoginController {
 	
 	@PostMapping
 	public String login(@RequestParam String username,@RequestParam String password) {
+		System.out.println("hello");
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(username, password)
 		);
