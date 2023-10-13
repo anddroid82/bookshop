@@ -44,10 +44,10 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-		httpSecurity.authenticationProvider(authenticationProvider());
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity
+		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+		.authenticationProvider(authenticationProvider())
 		.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/shop/login").permitAll()
