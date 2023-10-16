@@ -98,14 +98,19 @@ public class BookService {
 	}
 	
 	@Transactional
-	public List<Book> getBookListByBookSearch(Book b) {
-		String isbn = b.getIsbn();
+	public List<Book> getBookListByBookSearch(String isbn,List<Integer> price) {
 		
 		QBook book = QBook.book;
 		List<Predicate> predicates = new ArrayList<>();
 		
 		if (isbn != null) {
 			predicates.add(book.isbn.eq(isbn));
+		}
+		
+		if (price.size()==1) {
+			predicates.add(book.price.gt(price.get(0)));
+		}else if (price.size()==2) {
+			predicates.add(book.price.between(price.get(0), price.get(1)));
 		}
 		
 		Iterator<Book> iterator = bookRepository.findAll(ExpressionUtils.allOf(predicates)).iterator();

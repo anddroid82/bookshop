@@ -6,13 +6,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
-import org.springframework.data.querydsl.binding.QuerydslBindings;
+
+import com.querydsl.core.types.Predicate;
 
 import hu.webuni.bookshop.model.Book;
-import hu.webuni.bookshop.model.QBook;
 
-public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPredicateExecutor<Book>, QuerydslBinderCustomizer<QBook> {
+public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPredicateExecutor<Book> {
 
 	@EntityGraph(attributePaths = "authors")
 	//@Query("select b from Book b")
@@ -20,10 +19,5 @@ public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPr
 	
 	@EntityGraph(attributePaths = "authors")
 	Optional<Book> findById(Integer id);
-
-	@Override
-	default void customize(QuerydslBindings bindings, QBook root) {
-		
-	}
 	
 }
