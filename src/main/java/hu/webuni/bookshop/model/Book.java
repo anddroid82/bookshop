@@ -1,5 +1,6 @@
 package hu.webuni.bookshop.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,10 @@ public class Book {
 	private int price;
 	@ManyToMany
 	private List<Author> authors;
+	
 	private String image;
+	private int version;
+	private LocalDate bookdate;
 	
 	public void addAuthor(Author a) {
 		this.authors.add(a);

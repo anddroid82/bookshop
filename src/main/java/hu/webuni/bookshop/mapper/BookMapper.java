@@ -11,7 +11,7 @@ import hu.webuni.bookshop.model.Book;
 public interface BookMapper {
 
 	BookDto bookToDto(Book b);
-	//Book dtoToBook(BookDto b);
+	Book dtoToBook(BookDto b);
 	
 	List<BookDto> booksToDtos(List<Book> books);
 	
