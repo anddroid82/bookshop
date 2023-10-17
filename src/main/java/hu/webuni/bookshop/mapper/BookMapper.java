@@ -14,5 +14,6 @@ public interface BookMapper {
 	Book dtoToBook(BookDto b);
 	
 	List<BookDto> booksToDtos(List<Book> books);
+	List<BookDto> booksIterableToDtos(Iterable<Book> books);
 	
 }

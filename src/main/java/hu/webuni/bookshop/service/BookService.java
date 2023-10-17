@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -15,12 +14,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 
 import hu.webuni.bookshop.model.Author;
 import hu.webuni.bookshop.model.Book;
-import hu.webuni.bookshop.model.QBook;
 import hu.webuni.bookshop.repository.AuthorRepository;
 import hu.webuni.bookshop.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -97,7 +94,7 @@ public class BookService {
 		return b;
 	}
 	
-	@Transactional
+	/*@Transactional
 	public List<Book> getBookListByBookSearch(String isbn,List<Integer> price) {
 		
 		QBook book = QBook.book;
@@ -121,6 +118,16 @@ public class BookService {
 			booksResult.add(btemp);
 		}
 		return booksResult;
+	}*/
+
+	@Transactional
+	public Iterable<Book> search(Predicate predicate) {
+		Iterable<Book> iterable = bookRepository.findAll(predicate);
+		Iterator<Book> iterator = iterable.iterator();
+		while (iterator.hasNext()) {
+			iterator.next().getAuthors().iterator();
+		}
+		return iterable;
 	}
 
 }
