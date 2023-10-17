@@ -9,14 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
-
 import hu.webuni.bookshop.model.Book;
 import hu.webuni.bookshop.model.QBook;
 
 public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPredicateExecutor<Book>, QuerydslBinderCustomizer<QBook> {
 
 	@EntityGraph(attributePaths = "authors")
-	//@Query("select b from Book b")
 	List<Book> findAll();
 	
 	@EntityGraph(attributePaths = "authors")
