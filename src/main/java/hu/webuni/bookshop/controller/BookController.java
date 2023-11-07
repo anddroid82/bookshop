@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,6 +54,15 @@ public class BookController {
 			@RequestParam(required = false) MultipartFile image) {
 		return ResponseEntity.ok(bookMapper.bookToDto(bookService.modifiyBook(id,title,summary,isbn,price,authors,image)));
 	}
+	
+	@PostMapping("/{id}/mod1")
+	@PreAuthorize("hasAuthority('admin')")
+	public ResponseEntity<BookDto> modBook(
+			@RequestBody BookDto book,
+			@RequestParam(required = false) MultipartFile image) {
+		return ResponseEntity.ok(bookMapper.bookToDto(bookService.modifiyBook(bookMapper.dtoToBook(book),image)));
+	}
+	
 	
 	/*@GetMapping("/search")
 	public ResponseEntity<List<BookDto>> searchBook(@RequestParam(required = false) String isbn,@RequestParam List<Integer> price) {

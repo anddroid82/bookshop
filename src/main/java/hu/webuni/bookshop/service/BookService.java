@@ -74,8 +74,9 @@ public class BookService {
 			b.setPrice(price);
 			this.addAuthorsByIntArray(b, authors);
 			if (file != null) {
-				String uploadFile = this.uploadFile(file, b.getId()); 
-				if (uploadFile != "") b.setImage(uploadFile);
+				String uploadFile = this.uploadFile(file, b.getId());
+				if (uploadFile != "")
+					b.setImage(uploadFile);
 			}
 			return bookRepository.save(b);
 		}
@@ -93,32 +94,25 @@ public class BookService {
 		}
 		return b;
 	}
-	
-	/*@Transactional
-	public List<Book> getBookListByBookSearch(String isbn,List<Integer> price) {
-		
-		QBook book = QBook.book;
-		List<Predicate> predicates = new ArrayList<>();
-		
-		if (isbn != null) {
-			predicates.add(book.isbn.eq(isbn));
-		}
-		
-		if (price.size()==1) {
-			predicates.add(book.price.gt(price.get(0)));
-		}else if (price.size()==2) {
-			predicates.add(book.price.between(price.get(0), price.get(1)));
-		}
-		
-		Iterator<Book> iterator = bookRepository.findAll(ExpressionUtils.allOf(predicates)).iterator();
-		List<Book> booksResult = new ArrayList<>();
-		while (iterator.hasNext()) {
-			Book btemp = iterator.next();
-			btemp.getAuthors().iterator();
-			booksResult.add(btemp);
-		}
-		return booksResult;
-	}*/
+
+	/*
+	 * @Transactional public List<Book> getBookListByBookSearch(String
+	 * isbn,List<Integer> price) {
+	 * 
+	 * QBook book = QBook.book; List<Predicate> predicates = new ArrayList<>();
+	 * 
+	 * if (isbn != null) { predicates.add(book.isbn.eq(isbn)); }
+	 * 
+	 * if (price.size()==1) { predicates.add(book.price.gt(price.get(0))); }else if
+	 * (price.size()==2) { predicates.add(book.price.between(price.get(0),
+	 * price.get(1))); }
+	 * 
+	 * Iterator<Book> iterator =
+	 * bookRepository.findAll(ExpressionUtils.allOf(predicates)).iterator();
+	 * List<Book> booksResult = new ArrayList<>(); while (iterator.hasNext()) { Book
+	 * btemp = iterator.next(); btemp.getAuthors().iterator();
+	 * booksResult.add(btemp); } return booksResult; }
+	 */
 
 	@Transactional
 	public Iterable<Book> search(Predicate predicate) {
@@ -130,4 +124,25 @@ public class BookService {
 		return iterable;
 	}
 
+	@Transactional
+	public Book modifiyBook(Book book, MultipartFile file) {
+		System.out.println(book);
+		if (bookRepository.existsById(book.getId())) {
+			Book b = this.findById(book.getId()).get();
+			b.setTitle(book.getTitle());
+			b.setSummary(book.getSummary());
+			b.setIsbn(book.getIsbn());
+			b.setPrice(book.getPrice());
+			this.addAuthorsByIntArray(b,book.getAuthors().stream().map(Author::getId).mapToInt(Integer::intValue).toArray());
+			if (file != null) {
+				String uploadFile = this.uploadFile(file, b.getId());
+				if (uploadFile != "")
+					b.setImage(uploadFile);
+			}
+			return bookRepository.save(b);
+		}
+		return null;
+	}
+	
+	
 }
